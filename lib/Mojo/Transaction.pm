@@ -4,7 +4,6 @@ use Mojo::Base 'Mojo::EventEmitter';
 use Carp qw(croak);
 use Mojo::Message::Request;
 use Mojo::Message::Response;
-use Mojo::Util qw(deprecated);
 
 has [qw(kept_alive local_address local_port original_remote_address remote_port)];
 has req => sub { Mojo::Message::Request->new };
@@ -47,13 +46,6 @@ sub result {
 
 sub server_read  { croak 'Method "server_read" not implemented by subclass' }
 sub server_write { croak 'Method "server_write" not implemented by subclass' }
-
-# DEPRECATED!
-sub success {
-  deprecated 'Mojo::Transaction::success is DEPRECATED'
-    . ' in favor of Mojo::Transaction::result and Mojo::Transaction::error';
-  $_[0]->error ? undef : $_[0]->res;
-}
 
 1;
 
